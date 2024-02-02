@@ -24,4 +24,3 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer);
 
 export default store;
-// 진짜 돌겠네
