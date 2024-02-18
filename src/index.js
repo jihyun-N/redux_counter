@@ -1,7 +1,7 @@
 // 원래부터 있던 코드
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import App from "./App.jsx";
 import reportWebVitals from "./reportWebVitals";
 
 // 우리가 추가할 코드
