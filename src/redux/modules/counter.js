@@ -1,88 +1,76 @@
-// src/modules/counter.js
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// 추가된 코드 👇 - 액션 value를 상수들로 만들어 줍니다. 보통 이렇게 한곳에 모여있습니다.
-const PLUS_ONE = "PLUS_ONE";
-const MINUS_ONE = "MINUS_ONE";
-const TOTAL = "TOTAL";
-const PLUS = "PLUS";
-const MINUS = "MINUS";
+// 2개의 INPUT
+// (1) 이름 : 의미는 크게 없음
+// (2) 함수
+export const __plus = createAsyncThunk(
+  // 이름
+  "PLUS",
+  // 함수
+  (payload, thunkAPI) => {
+    // 수행하고 싶은 동작 : 2초를 기다리게 해보자
+    setTimeout(() => {
+      thunkAPI.dispatch(plus(payload));
+    }, 2000);
+  }
+);
 
-// 추가된 코드 👇 - Action Creator를 만들어 줍니다.
-export const plusOne = () => {
-  return {
-    type: PLUS_ONE,
-  };
-};
-export const minusOne = () => {
-  return {
-    type: MINUS_ONE,
-  };
-};
-
-export const total = () => {
-  return {
-    type: TOTAL,
-  };
-};
-export const plus = (payload) => {
-  return {
-    type: PLUS,
-    payload,
-  };
-};
-export const minus = (payload) => {
-  return {
-    type: MINUS,
-    payload,
-  };
-};
+export const __minus = createAsyncThunk(
+  // 이름
+  "PLUS",
+  // 함수
+  (payload, thunkAPI) => {
+    // 수행하고 싶은 동작 : 2초를 기다리게 해보자
+    setTimeout(() => {
+      thunkAPI.dispatch(minus(payload));
+    }, 2000);
+  }
+);
 
 // 초기 상태값
 const initialState = {
   plusOneResult: 0,
   minusOneResult: 0,
   totalNumber: 0,
-
   globalNumber: 0,
 };
 
-// 리듀서
-const counter = (state = initialState, action) => {
-  switch (action.type) {
-    case PLUS_ONE: // case에서도 문자열이 아닌, 위에서 선언한 상수를 넣어줍니다.
-      console.log(state.plusOneResult);
+const counterSlice = createSlice({
+  name: "counter",
+  initialState,
+  reducers: {
+    plusOne: (state, action) => {
       return {
         ...state, // 다른 상태값을 유지하기 위해 현재 상태를 복사합니다.
         plusOneResult: state.plusOneResult + 1,
       };
-    case MINUS_ONE:
-      console.log(state.minusOneResult);
+    },
+    minusOne: (state, action) => {
       return {
         ...state,
         minusOneResult: state.minusOneResult - 1,
       };
-    case TOTAL:
-      console.log(state.totalNumber);
+    },
+    total: (state, action) => {
       return {
         ...state,
         totalNumber: state.plusOneResult + state.minusOneResult,
       };
-    case PLUS:
-      console.log(state.globalNumber);
+    },
+    plus: (state, action) => {
       return {
         ...state,
         globalNumber: state.globalNumber + action.payload,
       };
-    case MINUS:
-      console.log(state.globalNumber);
+    },
+    minus: (state, action) => {
       return {
         ...state,
         globalNumber: state.globalNumber - action.payload,
       };
+    },
+  },
+});
 
-    default:
-      return state;
-  }
-};
-
-export default counter;
+export const { plusOne, minusOne, total, plus, minus } = counterSlice.actions;
+export default counterSlice.reducer;

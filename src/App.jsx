@@ -1,19 +1,12 @@
-// src/App.js
-
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
 
 // 사용할 Action creator를 import 합니다.
 import { plusOne } from "./redux/modules/counter";
 import { minusOne } from "./redux/modules/counter";
 import { total } from "./redux/modules/counter";
-import { plus } from "./redux/modules/counter";
-import { minus } from "./redux/modules/counter";
-
-import AddForm from "./components/AddForm";
-import TodoListContainer from "./components/TodoListContainter";
-
+import { __minus } from "./redux/modules/counter";
+import { __plus } from "./redux/modules/counter";
 const App = () => {
   // 간단 계산기
   const dispatch = useDispatch();
@@ -31,11 +24,11 @@ const App = () => {
   };
 
   const onClickAddNumberHandler = () => {
-    dispatch(plus(number));
+    dispatch(__plus(number));
   };
 
   const onClickMinusNumberHandler = () => {
-    dispatch(minus(number));
+    dispatch(__minus(number));
   };
 
   return (
@@ -77,25 +70,8 @@ const App = () => {
         <button onClick={onClickMinusNumberHandler}>빼기</button>
         <div>결과: {globalNumber}</div>
       </div>
-
-      <hr />
-
-      <div>
-        <div>todo list</div>
-        <div>
-          <StContainer>
-            <AddForm />
-            <TodoListContainer />
-          </StContainer>
-        </div>
-      </div>
     </div>
   );
 };
 
 export default App;
-
-const StContainer = styled.section`
-  max-width: 1440px;
-  margin: 0 auto;
-`;
